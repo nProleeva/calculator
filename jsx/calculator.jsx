@@ -38,9 +38,12 @@ class Calculator extends React.Component {
 			if( /^\-?[0-9]+[+\/\-*][0-9]+$/.test(obj.value)) {
 				let [all,left,right] = obj.value.match(/^(-?[0-9]+[+\/\-*])([0-9]+)$/);
 				obj.value = left + '(-' + right;
+				obj.b = Number('-' + right);
 			}else if(/^\-?[0-9]+[+\/\-*]\(\-[0-9]+$/.test(obj.value)) {
 				let [all,left,right] = obj.value.match(/^(-?[0-9]+[+\/\-*])(\(\-[0-9]+)$/);
-				obj.value = left + right.replace(/^\(\-/,'')
+				right = right.replace(/^\(\-/,'');
+				obj.value = left + right;
+				obj.b = Number(right);
 			}else if(/^[0-9]+/.test(obj.value)) {
 				let [all,left,right] = obj.value.match(/^([0-9]+)(.*)$/);
 				obj.value = '-' + left + right;
