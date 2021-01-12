@@ -66,7 +66,7 @@ class Calculator extends React.Component {
 				else if(/[+\/\-*=]/.test(char) && obj.value.length && /^\-?[0-9]+/.test(obj.value)) {
 					obj.value = obj.value.replace(/[+\/\-*]$/,'');
 					if( /^\-?[0-9]+[+\/\-*](\(\-)?[0-9]+$/.test(obj.value)) {
-						obj.a = this.operation(obj.a, obj.b, obj.oper);
+						obj.a = this.operator(obj.a, obj.b, obj.oper);
 						this.props.add({value:obj.value, c:obj.a});
 						obj.b = null;
 						obj.value = obj.a;
