@@ -35,24 +35,17 @@ class Calculator extends React.Component {
 	signChange() {
 		this.setState((state)=>{
 			let obj = state;
-			if( /^\-?[0-9]+[+\/\-*][0-9]+$/.test(obj.value)) {
-				let [all,left,right] = obj.value.match(/^(-?[0-9]+[+\/\-*])([0-9]+)$/);
+			if( /[+\/\-*][0-9]+$/.test(obj.value)) {
+				let [all,left,right] = obj.value.match(/^(\-?[0-9]+[+\/\-*])([0-9]+)$/);
 				obj.value = left + '(-' + right;
-				obj.b = Number('-' + right);
-			}else if(/^\-?[0-9]+[+\/\-*]\(\-[0-9]+$/.test(obj.value)) {
-				let [all,left,right] = obj.value.match(/^(-?[0-9]+[+\/\-*])(\(\-[0-9]+)$/);
+			}else if(/[+\/\-*]\(\-[0-9]+$/.test(obj.value)) {
+				let [all,left,right] = obj.value.match(/^(\-?[0-9]+[+\/\-*])(\(\-[0-9]+)$/);
 				right = right.replace(/^\(\-/,'');
 				obj.value = left + right;
-				obj.b = Number(right);
-			}else if(/^[0-9]+/.test(obj.value)) {
-				let [all,left,right] = obj.value.match(/^([0-9]+)(.*)$/);
-				obj.value = '-' + left + right;
-				if(right.length) obj.a = Number('-' + left);
-			}else if(/^\-[0-9]+/.test(obj.value)) {
-				let [all,left,right] = obj.value.match(/^\-([0-9]+)(.*)$/);
-				obj.value = left + right;
-				if(right.length) obj.a = Number(left);
-			}
+			}else if (/^\-[0-9]{0,}$/.test(obj.value))
+				obj.value = obj.value.replace(/^\-/,'');
+			else if (/^[0-9]{0,}$/.test(obj.value))
+				obj.value = '-' + obj.value;
 
 			return obj;
 		})
@@ -66,6 +59,7 @@ class Calculator extends React.Component {
 				else if(/[+\/\-*=]/.test(char) && obj.value.length && /^\-?[0-9]+/.test(obj.value)) {
 					obj.value = obj.value.replace(/[+\/\-*]$/,'');
 					if( /^\-?[0-9]+[+\/\-*](\(\-)?[0-9]+$/.test(obj.value)) {
+						obj.b = obj.value.match(/-?[0-9]{0,}$/)[0];
 						obj.a = this.operator(obj.a, obj.b, obj.oper);
 						this.props.add({value:obj.value, c:obj.a});
 						obj.b = null;
@@ -80,12 +74,9 @@ class Calculator extends React.Component {
 					let match = obj.value.match(/-?[0-9]{0,}$/)[0];
 					char = match.length <9?char:'';
 					obj.value +=char;
-					if(obj.a) obj.b = Number(match+char);
 				} 
-				else if(/[0-9]$/.test(obj.value) && char === "Backspace") {
+				else if(/[0-9]$/.test(obj.value) && char === "Backspace")
 					obj.value = obj.value.replace(/[0-9]$/,'');
-					if(obj.a && /[+\/\-*]/.test(obj.value)) obj.b = Number(obj.value.match(/\-?[0-9]{0,}$/)[0]);
-				}
 				return obj;
 			});
 	}
