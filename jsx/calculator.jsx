@@ -1,7 +1,5 @@
 const React = require('react')
 const { connect } = require('react-redux')
-const { bindActionCreators } = require('redux')
-const styles = require('../css/calculator.scss')
 
 class Calculator extends React.Component {
 
@@ -35,7 +33,7 @@ class Calculator extends React.Component {
 	signChange() {
 		this.setState((state)=>{
 			let obj = state;
-			if( /[+\/\-*][0-9]+$/.test(obj.value)) {
+			if( /^\-?[0-9]+[+\/\-*][0-9]+$/.test(obj.value)) {
 				let [all,left,right] = obj.value.match(/^(\-?[0-9]+[+\/\-*])([0-9]+)$/);
 				obj.value = left + '(-' + right;
 			}else if(/[+\/\-*]\(\-[0-9]+$/.test(obj.value)) {
@@ -59,9 +57,9 @@ class Calculator extends React.Component {
 				else if(/[+\/\-*=]/.test(char) && obj.value.length && /^\-?[0-9]+/.test(obj.value)) {
 					obj.value = obj.value.replace(/[+\/\-*]$/,'');
 					if( /^\-?[0-9]+[+\/\-*](\(\-)?[0-9]+$/.test(obj.value)) {
-						obj.b = obj.value.match(/-?[0-9]{0,}$/)[0];
+						obj.b = Number(obj.value.match(/([+\/\-*]\(?)(\-?[0-9]{0,}$)/)[2]);
 						obj.a = this.operator(obj.a, obj.b, obj.oper);
-						this.props.add({value:obj.value, c:obj.a});
+						this.props.add(obj.value + '=' + obj.a);
 						obj.b = null;
 						obj.value = obj.a;
 					}
@@ -71,7 +69,7 @@ class Calculator extends React.Component {
 					obj.oper = char!=='='?char:null;
 				}
 				else if(/[0-9]/.test(char)) {
-					let match = obj.value.match(/-?[0-9]{0,}$/)[0];
+					let match = obj.value.match(/\-?[0-9]{0,}$/)[0];
 					char = match.length <9?char:'';
 					obj.value +=char;
 				} 
@@ -93,11 +91,4 @@ class Calculator extends React.Component {
 
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // dispatching plain actions
-    add: (state) => dispatch({ type: 'Add_operation', value: state })
-  }
-}
-
-module.exports = connect(null, mapDispatchToProps)(Calculator);
+module.exports = connect()(Calculator);
