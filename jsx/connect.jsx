@@ -1,7 +1,8 @@
 const React = require('react')
 const { connect } = require('react-redux')
-const {fetchOperationsActionCreator} = require('./redux/reducer.js')
+const {fetchOperationsActionCreator, deleteOperationsAction} = require('./redux/reducer.js')
 const Calculator = require('./calculator.jsx')
+const ButtonDelete = require('./deleteOperations.jsx')
 const TextArea = require('./allOperations.jsx')
 
 class Wrapper extends React.Component {
@@ -15,6 +16,7 @@ class Wrapper extends React.Component {
 		return (
 			<div>
 				<Calculator add={this.props.fetchOperations}/>
+				<ButtonDelete delete={this.props.deleteOperations}/>
 				<TextArea operations={operations} />
 			</div>
 		)
@@ -22,4 +24,4 @@ class Wrapper extends React.Component {
 
 }
 
-module.exports = connect(({operations})=>({operations:operations.all}), {fetchOperations:fetchOperationsActionCreator})(Wrapper);
+module.exports = connect(({operations})=>({operations:operations.all}), {fetchOperations:fetchOperationsActionCreator,deleteOperations:deleteOperationsAction})(Wrapper);

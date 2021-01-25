@@ -2,11 +2,15 @@ const { handleActions } = require('redux-actions')
 
 const FETCH_OPERATIONS = 'operations/FETCH_OPERATIONS'
 const FETCH_OPERATION = 'operations/FETCH_OPERATION'
+const DELETE_OPERATIONS = 'operations/DELETE_OPERATIONS'
 
 module.exports = {
   fetchOperationsActionCreator: (operation) => ({
     type: FETCH_OPERATIONS,
     operation
+  }),
+  deleteOperationsAction: () => ({
+    type: DELETE_OPERATIONS
   }),
   fetchOperationActionCreator: (index) => ({
     type: FETCH_OPERATION,
@@ -21,6 +25,15 @@ module.exports = {
     	return {
 			...newState,
 			all: all + count + ') ' + action.operation + '\n'
+		}
+	},
+	[DELETE_OPERATIONS]: (state, action) => {
+		let newState = state;
+		newState.operations=[];
+		newState.operation='';
+		newState.all='';
+		return {
+			...newState
 		}
 	},
     [FETCH_OPERATION]: (state, action) => ({
