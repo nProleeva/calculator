@@ -4,22 +4,28 @@ const FETCH_OPERATIONS = 'operations/FETCH_OPERATIONS'
 const FETCH_OPERATION = 'operations/FETCH_OPERATION'
 
 module.exports = {
-  fetchOperationsActionCreator: (operations) => ({
+  fetchOperationsActionCreator: (operation) => ({
     type: FETCH_OPERATIONS,
-    operations
+    operation
   }),
   fetchOperationActionCreator: (index) => ({
     type: FETCH_OPERATION,
     index
   }),
   reducer: handleActions({
-    [FETCH_OPERATIONS]: (state, action) => ({
-		...state,
-		all: action.operations
-	}),
+    [FETCH_OPERATIONS]: (state, action) => {
+    	let newState = state,
+    		all = newState.all || '',
+    		count = newState.operations.length + 1;
+    	newState.operations.push(action.operation);
+    	return {
+			...newState,
+			all: all + count + ') ' + action.operation + '\n'
+		}
+	},
     [FETCH_OPERATION]: (state, action) => ({
 		...state,
-		current: state.all[action.index - 1]
+		current: state.operations[action.index - 1]
     })
   }, {
     operations: [],

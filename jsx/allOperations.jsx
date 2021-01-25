@@ -8,10 +8,9 @@ class TextArea extends React.Component {
 	}
 
 	render() {
-		console.log(this.props.operations);
-		return <div>
+		return <p>
 			{this.props.operations}
-		</div>
+		</p>
 	}
 }
 
