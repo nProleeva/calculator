@@ -59,7 +59,7 @@ class Calculator extends React.Component {
 					if( /^\-?[0-9]+[+\/\-*](\(\-)?[0-9]+$/.test(obj.value)) {
 						obj.b = Number(obj.value.match(/([+\/\-*]\(?)(\-?[0-9]{0,}$)/)[2]);
 						obj.a = this.operator(obj.a, obj.b, obj.oper);
-						this.props.add(obj.value + '=' + obj.a);
+						this.props.add(obj.value + (/\(/.test(obj.value)?')':'') + '=' + obj.a);
 						obj.b = null;
 						obj.value = obj.a;
 					}
@@ -69,9 +69,15 @@ class Calculator extends React.Component {
 					obj.oper = char!=='='?char:null;
 				}
 				else if(/[0-9]/.test(char)) {
+					if(/[^+\/\-*=0-9]/.test(obj.value)) obj.value = '';
+					
 					let match = obj.value.match(/\-?[0-9]{0,}$/)[0];
 					char = match.length <9?char:'';
-					obj.value +=char;
+					obj.value += char;
+					if (/^0[0-9]{1,}/.test(obj.value) || /[+\/\-*]\(?\-?0[0-9]{1,}$/.test(obj.value))
+						obj.value = obj.value.replace(/^(\-)?([0-9]{1,})([+\/\-*]\(?\-?)?([0-9]{1,}$)?/,function(all,sign='',a,oper='',b='') {
+							return sign + a.replace(/^0/,'') + oper + b.replace(/^0/,'');
+						});
 				} 
 				else if(/[0-9]$/.test(obj.value) && char === "Backspace")
 					obj.value = obj.value.replace(/[0-9]$/,'');
@@ -82,7 +88,7 @@ class Calculator extends React.Component {
 	render() {
 		return (
 			<div onKeyDown={this.handleChange} id="calculator">
-				<input type="text" value={this.state.value} disabled={true} />
+				<input type="text" value={this.state.value} readOnly/>
 				<button onClick={this.clickCe}>Ce</button>
 				<button onClick={this.signChange}>+/-</button>
 			</div>
