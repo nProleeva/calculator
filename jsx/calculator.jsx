@@ -5,11 +5,22 @@ class Calculator extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.state = {a:null, b:null, oper: null, value: ''};
+		this.state = {a:null, b:null, oper: null, value: '', current:''};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.clickCe = this.clickCe.bind(this);
 		this.signChange = this.signChange.bind(this);
+	}
+
+	componentDidUpdate() {
+		if(this.props.current && this.props.current.value!==this.state.current)
+			this.setState({
+				a:this.props.current.a,
+				b:this.props.current.b,
+				oper:this.props.current.oper,
+				value:this.props.current.value,
+				current:this.props.current.value
+			})
 	}
 
 	operator(a, b, oper) {
@@ -58,8 +69,9 @@ class Calculator extends React.Component {
 					obj.value = obj.value.replace(/[+\/\-*]$/,'');
 					if( /^\-?[0-9]+[+\/\-*](\(\-)?[0-9]+$/.test(obj.value)) {
 						obj.b = Number(obj.value.match(/([+\/\-*]\(?)(\-?[0-9]{0,}$)/)[2]);
-						obj.a = this.operator(obj.a, obj.b, obj.oper);
-						this.props.add(obj.value + (/\(/.test(obj.value)?')':'') + '=' + obj.a);
+						let value = this.operator(obj.a, obj.b, obj.oper);
+						this.props.add({a:obj.a, b:obj.b, oper:obj.oper, c:value, value:obj.value});
+						obj.a = value;
 						obj.b = null;
 						obj.value = obj.a;
 					}
@@ -70,7 +82,7 @@ class Calculator extends React.Component {
 				}
 				else if(/[0-9]/.test(char)) {
 					if(/[^+\/\-*=0-9]/.test(obj.value)) obj.value = '';
-					
+
 					let match = obj.value.match(/\-?[0-9]{0,}$/)[0];
 					char = match.length <9?char:'';
 					obj.value += char;

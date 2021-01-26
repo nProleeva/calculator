@@ -1,8 +1,8 @@
 const { handleActions } = require('redux-actions')
 
 const FETCH_OPERATIONS = 'operations/FETCH_OPERATIONS'
-const FETCH_OPERATION = 'operations/FETCH_OPERATION'
 const DELETE_OPERATIONS = 'operations/DELETE_OPERATIONS'
+const RETURN_OPERATION = 'operations/RETURN_OPERATION'
 
 module.exports = {
   fetchOperationsActionCreator: (operation) => ({
@@ -12,34 +12,34 @@ module.exports = {
   deleteOperationsAction: () => ({
     type: DELETE_OPERATIONS
   }),
-  fetchOperationActionCreator: (index) => ({
-    type: FETCH_OPERATION,
+  returnOperationAction: (index) => ({
+    type: RETURN_OPERATION,
     index
   }),
   reducer: handleActions({
-    [FETCH_OPERATIONS]: (state, action) => {
-    	let newState = state,
-    		all = newState.all || '',
-    		count = newState.operations.length + 1;
-    	newState.operations.push(action.operation);
-    	return {
-			...newState,
-			all: all + count + ') ' + action.operation + '\n'
-		}
-	},
+    [FETCH_OPERATIONS]: (state, action) => ({
+			...state,
+			current:undefined,
+			operations:state.operations.concat(action.operation)
+	}),
 	[DELETE_OPERATIONS]: (state, action) => {
 		let newState = state;
 		newState.operations=[];
 		newState.operation='';
-		newState.all='';
+		newState.current=undefined;
 		return {
 			...newState
 		}
 	},
-    [FETCH_OPERATION]: (state, action) => ({
-		...state,
-		current: state.operations[action.index - 1]
-    })
+	[RETURN_OPERATION]: (state, action) => {
+		if(action.index>state.operations.length) return{...state, message:'error: нет операции под номером ' + action.index};
+		return  {
+			...state,
+			current: state.operations[action.index - 1],
+			operations:state.operations.slice(0, action.index-1),
+			message: 'все успешно выполнилось'
+		}
+	}
   }, {
     operations: [],
     operation: ''

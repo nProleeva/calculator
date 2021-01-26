@@ -8,9 +8,13 @@ class TextArea extends React.Component {
 	}
 
 	render() {
-		return <p>
-			{this.props.operations}
-		</p>
+		return <div>
+			{this.props.operations.map((operation, index) =>{
+				let value=operation.value;
+				value+=(/\(/.test(operation.value)?')':'') + '=' + operation.c;
+				return <div key={index}>{index+1}) {value}</div>
+			})}
+		</div>
 	}
 }
 
