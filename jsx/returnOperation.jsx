@@ -1,7 +1,9 @@
+require('../css/returnOperation.scss');
+
 const React = require('react')
 const { connect } = require('react-redux')
 
-class ButtonDelete extends React.Component {
+class returnOperation extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -25,11 +27,12 @@ class ButtonDelete extends React.Component {
 	}
 
 	render() {
-		return <div>
+		return <div id="returnOperation">
+			<div>Enter the number of the operation you want to return</div>
 			<input type="text" value={this.state.value} onChange={this.change}/><button onClick={this.enter}>Enter</button>
 			<div>{this.props.message}</div>
 		</div>
 	}
 }
 
-module.exports = connect()(ButtonDelete);
+module.exports = connect()(returnOperation);

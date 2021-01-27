@@ -1,3 +1,5 @@
+require('../css/deleteOperations.scss');
+
 const React = require('react')
 const { connect } = require('react-redux')
 
@@ -8,7 +10,7 @@ class ButtonDelete extends React.Component {
 	}
 
 	render() {
-		return <div>
+		return <div id="deleteOperations">
 			<button onClick={this.props.delete}>Delete operations</button>
 		</div>
 	}
