@@ -29,8 +29,8 @@ class Image extends React.Component {
 
 		return (
 			<div className="wrapper-image" onClick={this.clickImg}>
-				<div className="overlay">click</div>
-				<img src={this.state.src} style={{maxWidth: '500px'}}/>
+				<div className="overlay"><p>click</p></div>
+				<img src={this.state.src}/>
 			</div>
 		)
 	}
