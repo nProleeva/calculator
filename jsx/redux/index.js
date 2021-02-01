@@ -1,8 +1,11 @@
 const { combineReducers } = require('redux')
 const {
   reducer: operations
-} = require('./reducer.js')
+} = require('./reducerCalculator.js')
+const {
+  reducer: images
+} = require('./reducerImage.js')
 
 module.exports = combineReducers({
-	operations
+	operations, images
 })
