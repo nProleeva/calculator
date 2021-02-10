@@ -1,5 +1,5 @@
-const React = require('react')
-const { connect } = require('react-redux')
+import React from 'react'
+import {connect} from 'react-redux'
 
 class TextArea extends React.Component {
 
@@ -18,4 +18,4 @@ class TextArea extends React.Component {
 	}
 }
 
-module.exports = connect()(TextArea);
+export default connect()(TextArea);

@@ -1,7 +1,7 @@
 require('../css/deleteOperations.scss');
 
-const React = require('react')
-const { connect } = require('react-redux')
+import React from 'react'
+import {connect} from 'react-redux'
 
 class ButtonDelete extends React.Component {
 
@@ -16,4 +16,4 @@ class ButtonDelete extends React.Component {
 	}
 }
 
-module.exports = connect()(ButtonDelete);
+export default connect()(ButtonDelete);

@@ -1,26 +1,26 @@
-const { handleActions } = require('redux-actions')
+import { handleActions } from 'redux-actions'
 
 const FETCH_OPERATIONS = 'operations/FETCH_OPERATIONS'
 const DELETE_OPERATIONS = 'operations/DELETE_OPERATIONS'
 const RETURN_OPERATION = 'operations/RETURN_OPERATION'
 
-module.exports = {
-  fetchOperationsActionCreator: (operation) => ({
-    type: FETCH_OPERATIONS,
-    operation
-  }),
-  deleteOperationsAction: () => ({
-    type: DELETE_OPERATIONS
-  }),
-  returnOperationAction: (index) => ({
-    type: RETURN_OPERATION,
-    index
-  }),
-  reducer: handleActions({
-    [FETCH_OPERATIONS]: (state, action) => ({
-			...state,
-			current:undefined,
-			operations:state.operations.concat(action.operation)
+const fetchOperationsActionCreator = (operation) => ({
+		type: FETCH_OPERATIONS,
+		operation
+	}),
+	deleteOperationsAction = () => ({
+		type: DELETE_OPERATIONS
+	}),
+	returnOperationAction = (index) => ({
+		type: RETURN_OPERATION,
+		index
+	});
+
+const reducer = handleActions({
+	[FETCH_OPERATIONS]: (state, action) => ({
+		...state,
+		current:undefined,
+		operations:state.operations.concat(action.operation)
 	}),
 	[DELETE_OPERATIONS]: (state, action) => {
 		let newState = state;
@@ -40,8 +40,9 @@ module.exports = {
 			message: 'все успешно выполнилось'
 		}
 	}
-  }, {
-    operations: [],
-    operation: ''
-  })
-}
+}, {
+	operations: [],
+	operation: ''
+});
+
+export { fetchOperationsActionCreator,deleteOperationsAction,returnOperationAction,reducer}

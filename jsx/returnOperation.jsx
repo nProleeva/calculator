@@ -1,7 +1,7 @@
 require('../css/returnOperation.scss');
 
-const React = require('react')
-const { connect } = require('react-redux')
+import React from 'react'
+import {connect} from 'react-redux'
 
 class returnOperation extends React.Component {
 
@@ -35,4 +35,4 @@ class returnOperation extends React.Component {
 	}
 }
 
-module.exports = connect()(returnOperation);
+export default connect()(returnOperation);

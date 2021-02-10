@@ -1,11 +1,7 @@
-const { combineReducers } = require('redux')
-const {
-  reducer: operations
-} = require('./reducerCalculator.js')
-const {
-  reducer: images
-} = require('./reducerImage.js')
+import {combineReducers} from 'redux'
+import {reducer as operations} from './reducerCalculator.js';
+import {reducer as images} from './reducerImage.js'
 
-module.exports = combineReducers({
+export default combineReducers({
 	operations, images
 })

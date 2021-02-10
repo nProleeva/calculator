@@ -1,7 +1,7 @@
-const React = require('react')
-const { connect } = require('react-redux')
-const Image = require('./image.jsx')
-const WrapperCalculator = require('./wrapperCalculator.jsx')
+import React from 'react'
+import {connect} from 'react-redux'
+import Image from './image.jsx'
+import WrapperCalculator from './wrapperCalculator.jsx'
 
 class Wrapper extends React.Component {
 
@@ -21,4 +21,4 @@ class Wrapper extends React.Component {
 
 }
 
-module.exports = connect()(Wrapper);
+export default connect()(Wrapper);

@@ -1,12 +1,12 @@
-const React = require('react');
-const { render } = require('react-dom')
-const { Provider } = require('react-redux')
-const { createStore, applyMiddleware} = require('redux')
-const thunkMiddleware = require('redux-thunk').default;
-const Wrapper = require('./connect.jsx')
-const reducers = require('./redux')
+import React from 'react'
+import {render} from 'react-dom'
+import {connect, Provider} from 'react-redux'
+import { createStore, applyMiddleware} from 'redux'
+import thunkMiddleware from 'redux-thunk';
+import Wrapper from './connect.jsx'
+import reducers from './redux'
 
-module.exports = render((
+export default render((
 	<Provider store={createStore(reducers,applyMiddleware(thunkMiddleware))}>
 		<Wrapper/>
 	</Provider>

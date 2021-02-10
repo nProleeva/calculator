@@ -1,10 +1,10 @@
-const React = require('react')
-const { connect } = require('react-redux')
-const {fetchOperationsActionCreator, deleteOperationsAction, returnOperationAction} = require('./redux/reducerCalculator.js')
-const Calculator = require('./calculator.jsx')
-const ButtonDelete = require('./deleteOperations.jsx')
-const ReturnOperation = require('./returnOperation.jsx')
-const TextArea = require('./allOperations.jsx')
+import React from 'react'
+import {connect} from 'react-redux'
+import {fetchOperationsActionCreator, deleteOperationsAction, returnOperationAction} from './redux/reducerCalculator.js'
+import Calculator from './calculator.jsx'
+import ButtonDelete from './deleteOperations.jsx'
+import ReturnOperation from './returnOperation.jsx'
+import TextArea from './allOperations.jsx'
 
 class WrapperCalculator extends React.Component {
 
@@ -31,7 +31,7 @@ class WrapperCalculator extends React.Component {
 
 }
 
-module.exports = connect(state =>({
+export default connect(state =>({
 		operations:state.operations.operations,
 		current:state.operations.current,
 		message:state.operations.message

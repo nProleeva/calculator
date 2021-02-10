@@ -1,9 +1,9 @@
 require('../css/calculator.scss');
 
-const React = require('react')
-const { connect } = require('react-redux')
+import React from 'react'
+import {connect} from 'react-redux'
 
-const regexNumber = (amount=-1) => (amount>-1)?('[0-9\\.]{' + amount + ',}'):'[0-9\\.]',
+const regexNumber = (amount=-1) => (amount>-1)?`[0-9\\.]{${amount},}`:'[0-9\\.]',
 		regexOper = (equally=false) => equally?'[+\\/\\-\\*=]':'[+\\/\\-\\*]';
 
 
@@ -34,7 +34,7 @@ class Calculator extends React.Component {
 			case '+': return a+b;
 			case '-': return a-b;
 			case '*': return a*b;
-			case '/': return b!=0 ? a/b : 'на 0 делить нельзя';
+			case '/': return b!==0 ? a/b : 'на 0 делить нельзя';
 			default: return 'неизвестный оператор'
 		}
 	}
@@ -116,4 +116,4 @@ class Calculator extends React.Component {
 
 }
 
-module.exports = connect()(Calculator);
+export default connect()(Calculator);

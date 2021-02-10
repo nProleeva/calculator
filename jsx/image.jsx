@@ -1,8 +1,8 @@
 require('../css/image.scss');
 
-const React = require('react')
-const { connect } = require('react-redux')
-const {newImageActionCreator} = require('./redux/reducerImage.js')
+import React from 'react'
+import {connect} from 'react-redux'
+import {newImageActionCreator} from './redux/reducerImage.js'
 
 class Image extends React.Component {
 
@@ -37,7 +37,7 @@ class Image extends React.Component {
 
 }
 
-module.exports = connect(state =>({
+export default connect(state =>({
 		url:state.images.url
 	}), {
 		newImage:newImageActionCreator
