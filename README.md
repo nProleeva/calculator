@@ -7,6 +7,6 @@ To demonstrate asynchronous actions and different reducers, an api request for d
 
 Для демонстрации асинхронных действий и различных reducers был разработан API-запрос для отображения изображений по клику.)
 
-![alt text](https://github.com/work-react/calculator/blob/main/image.jpg?raw=true "Example(Пример)")
+![alt text](https://github.com/nProleeva/calculator/blob/main/image.jpg?raw=true "Example(Пример)")
 
-# site https://work-react.github.io/calculator/
+# site https://nProleeva.github.io/calculator/
